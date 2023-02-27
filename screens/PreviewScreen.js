@@ -29,12 +29,10 @@ const PreviewScreen = () => {
           color="white"
           onPress={() => navigation.goBack()}
         />
+        <Text style={styles.title}>Song Preview</Text>
       </View>
-      <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
-        Song Preview
-      </Text>
       <WebView
-        style={{ flex: 1 }}
+        style={styles.webview}
         source={{ uri: previewUrl }}
         originWhitelist={["*"]}
         onLoad={handleLoad}
@@ -52,25 +50,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#121212",
-    padding: 0,
-    margin: 0,
   },
   header: {
+    height: "12%",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "flex-start",
-    height: 70,
-    paddingTop: 30,
+    paddingTop: 50,
     paddingHorizontal: 20,
     backgroundColor: "#121212",
   },
   title: {
     flex: 1,
-    height: "10%",
     textAlign: "center",
     fontSize: 20,
     fontWeight: "bold",
     color: "white",
-    marginLeft: 20,
+  },
+  webview: {
+    flex: 1,
   },
 });

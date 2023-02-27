@@ -12,6 +12,10 @@ const SongList = ({ tracks }) => {
     navigation.navigate("PreviewScreen", { previewUrl });
   };
 
+  const handleSongSelect = (externalUrl) => {
+    navigation.navigate("DetailsScreen", { externalUrl });
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -24,38 +28,41 @@ const SongList = ({ tracks }) => {
       <FlatList
         data={tracks}
         renderItem={({ item, index }) => (
-          <View style={styles.songContainer}>
-            {/*replace the number container with a play button*/}
-            <Pressable
-              style={styles.playButton}
-              onPress={() => {
-                handlePlayPress(item.previewUrl),
-                  console.log(item.previewUrl),
-                  console.log(`Play track ${index + 1}`);
-              }}
-            >
-              <AntDesign name="play" size={18} color="#1DB954" />
-            </Pressable>
-            <View style={styles.numberContainer}>
-              <Text style={styles.number}>{index + 1}</Text>
+          <Pressable onPress={() => handleSongSelect(item.externalUrl)}>
+            <View style={styles.songContainer}>
+              {/*replace the number container with a play button*/}
+              <Pressable
+                style={styles.playButton}
+                onPress={() => {
+                  handlePlayPress(item.previewUrl);
+                }}
+              >
+                <AntDesign name="play" size={18} color="#1DB954" />
+              </Pressable>
+              <View style={styles.numberContainer}>
+                <Text style={styles.number}>{index + 1}</Text>
+              </View>
+              <Image
+                style={styles.albumCover}
+                source={{ uri: item.imageUrl }}
+              />
+              <View style={styles.songInfoContainer}>
+                <Text numberOfLines={1} style={styles.songListText}>
+                  {item.songTitle}
+                </Text>
+                <Text numberOfLines={1} style={styles.songArtists}>
+                  {item.songArtists.map((artist) => artist.name).join(", ")}
+                </Text>
+                <Text numberOfLines={1} style={styles.albumName}>
+                  {item.albumName}
+                </Text>
+              </View>
+              <Text style={styles.songDuration}>
+                {millisToMinutesAndSeconds(item.duration)}
+              </Text>
+              {/* <Text style={styles.songListText}>{item.songTitle}</Text> */}
             </View>
-            <Image style={styles.albumCover} source={{ uri: item.imageUrl }} />
-            <View style={styles.songInfoContainer}>
-              <Text numberOfLines={1} style={styles.songListText}>
-                {item.songTitle}
-              </Text>
-              <Text numberOfLines={1} style={styles.songArtists}>
-                {item.songArtists.map((artist) => artist.name).join(", ")}
-              </Text>
-              <Text numberOfLines={1} style={styles.albumName}>
-                {item.albumName}
-              </Text>
-            </View>
-            <Text style={styles.songDuration}>
-              {millisToMinutesAndSeconds(item.duration)}
-            </Text>
-            {/* <Text style={styles.songListText}>{item.songTitle}</Text> */}
-          </View>
+          </Pressable>
         )}
         keyExtractor={(item) => item.id}
       />
