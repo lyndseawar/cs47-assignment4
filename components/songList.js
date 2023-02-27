@@ -1,8 +1,17 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { millisToMinutesAndSeconds } from "../utils";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const SongList = ({ tracks }) => {
+  const navigation = useNavigation();
+
+  const handlePlayPress = (previewUrl) => {
+    navigation.navigate("PreviewScreen", { previewUrl });
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -16,6 +25,17 @@ const SongList = ({ tracks }) => {
         data={tracks}
         renderItem={({ item, index }) => (
           <View style={styles.songContainer}>
+            {/*replace the number container with a play button*/}
+            <Pressable
+              style={styles.playButton}
+              onPress={() => {
+                handlePlayPress(item.previewUrl),
+                  console.log(item.previewUrl),
+                  console.log(`Play track ${index + 1}`);
+              }}
+            >
+              <AntDesign name="play" size={18} color="#1DB954" />
+            </Pressable>
             <View style={styles.numberContainer}>
               <Text style={styles.number}>{index + 1}</Text>
             </View>
@@ -110,6 +130,9 @@ const styles = StyleSheet.create({
   },
   songListText: {
     color: "white",
+  },
+  playButton: {
+    marginRight: 10,
   },
 });
 

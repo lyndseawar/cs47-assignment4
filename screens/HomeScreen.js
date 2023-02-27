@@ -1,8 +1,8 @@
-import { useSpotifyAuth } from "../utils";
+import { useSpotifyAuth } from "../utils/";
 import SongList from "../components/songList";
 import SpotifyAuthBotton from "../components/spotifyAuthButton";
 import { StyleSheet, SafeAreaView } from "react-native";
-import { Themes } from "./assets/Themes";
+import { Themes } from "../assets/Themes";
 
 export default function HomeScreen() {
   // Pass in true to useSpotifyAuth to use the album ID (in env.js) instead of top tracks

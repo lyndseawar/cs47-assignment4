@@ -12,9 +12,21 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
-        <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
-        <Stack.Screen name="PreviewScreen" component={PreviewScreen} />
+        <Stack.Screen
+          name="HomeScreen"
+          component={HomeScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="DetailsScreen"
+          component={DetailsScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="PreviewScreen"
+          component={PreviewScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
